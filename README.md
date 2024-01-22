@@ -1,7 +1,7 @@
 # HSK 단어 맞추기 게임입니다. 
 ## 동영상 : http://bit.ly/hskprojectvideo<br>
 
-##중국어와 한국어 단어 매핑 
+##중국어와 한국어 단어 매핑(LanguageData.cs) 
 ```C#
 namespace LanguageData
 {
@@ -27,61 +27,14 @@ namespace LanguageData
         new LanguageInfo{KoreanWord="옮기다",ChineseWord = "搬"},
         new LanguageInfo{KoreanWord="방법",ChineseWord ="办法" },
         new LanguageInfo{KoreanWord="사무실",ChineseWord ="办公室"},
-        new LanguageInfo{KoreanWord="반",ChineseWord ="半" }
-        ...
-}
+        new LanguageInfo{KoreanWord="반",ChineseWord ="半" },
+        new LanguageInfo {KoreanWord="도와주다",ChineseWord ="帮忙"  },
+            ...
+        }
+    }
 ```
-구조체를 이용하여 한국어와 중국어를 매핑했습니다. 
-
-## 큐브 및 중국어 단어 스크립트
-```C#
-
-```
-
-### 큐브가 만들어지는 횟수 및 시간 조정 
-```C#
-private void Start()
-{
-    InvokeRepeating("OnStart", 4f, 0.07f * wordList.Count);
-
-    posIndexes = new List<int> { posIndex };
-}
-```
-## 큐브 및 중국어 단어 스크립트 생성 (wordCreator.cs)
-###1) 큐브 생성 
-```C#
-GameObject cubePrefab = GameObject.CreatePrimitive(PrimitiveType.Cube);
-
-
-cubePrefab.transform.localScale = new Vector3(3.813359f, 6f, 1f);
-cubePrefab.GetComponent<Renderer>().material = cubeMaterial;
-//XRGrabInteractable grabInteractable = cubePrefab.AddComponent<XRGrabInteractable>();
-       
-//grabInteractable.interactionLayerMask = LayerMask.GetMask("interactable"); // Set the appropriate layer
-cubePrefab.layer = 7;
-```
-비동기로 큐브를 생성해야 했기에 인스펙터창에서 작업하지 못하고 코드로 작업하였습니다. <br>
-큐브를 생성하여 머티리얼을 입히고 layer을 변경해주었습니다. 
-```C#
-float[] xPositions = new float[] { 1475.7f, 1479.93f, 1484.03f, 1488.09f, 1492.16f }; //큐브의 위치 지정 
-int numberOfCubes = Random.Range(3, 6);
-List<int> availableIndexes = new List<int>(xPositions.Length);// 큐브 위치의 갯수 
-```
-큐브의 위치를 지정합니다. 
-```C#
-int numberOfCubes = Random.Range(3, 6);
-List<int> availableIndexes = new List<int>(xPositions.Length);// 큐브 위치의 갯수 
-```
-랜덤으로 3~5개 큐브를 만들도록 하고 인덱스를 이용하여 큐브의 위치에 나올 수 있도록 availableIndexes지정합니다. 
-
-```C#
- for (int i = 0; i < xPositions.Length; i++)
- {
-     availableIndexes.Add(i);
- }
-
-```
-나온 쿠브의 인덱스를 저장합니다. 
+##큐브 및 중국어 단어 생성 
+1) 큐브 생성 
 ```C#
 for (int i = 0; i < numberOfCubes; i++)
 {
@@ -89,7 +42,7 @@ for (int i = 0; i < numberOfCubes; i++)
     randomIndex = Random.Range(0, availableIndexes.Count); //큐브의 위치 인덱스 갯수 중 램덤하게 그 위치갸 numberOfCubes의 갯수만큼 나옴 
     cubeCount = randomIndex;
     int posIndex = availableIndexes[randomIndex];// 큐브 위치의 갯수 중 램덤하게 위치 
-                                                 //List<int> availableIndexes = new List<int>(xPositions.Length);
+                                                
     generatedRandomIndexes.Add(randomIndex);
 
     availableIndexes.RemoveAt(randomIndex); // 해당 인덱스 제거
@@ -100,79 +53,81 @@ for (int i = 0; i < numberOfCubes; i++)
     //List<int> posIndexes = new List<int> { posIndex };
 
     Vector3 spawnPosition = new Vector3(spawnX, 608.7f + 2.3f, -1107.5f);
-    
-
-    // 큐브 생성 후 중국어 텍스트 생성
-    GameObject cube = Instantiate(cubePrefab, spawnPosition, rotation);
-    //cube.transform.parent = obstacleEmpty.transform;
-    //destroyMethod destory = new destroyMethod();
-    destroyMethod destroyMethodScript = cube.AddComponent<destroyMethod>();
-    cube.SetActive(true);
-    randomIndex = Random.Range(0, availableIndexes.Count); //큐브의 위치 인덱스 갯수 중 램덤하게 그 위치갸 numberOfCubes의 갯수만큼 나옴 
-    //int posIndex = availableIndexes[randomIndex];
-    //List<int> availableIndexes = new List<int>(xPositions.Length);
-    
-    
-
 ```
-###2) 중국어 단어 부착 
-
+랜덤하게 뽑은 수만큼 반복하여 큐브를 만들어 위치시키는 부분입니다. 
 
 ```C#
-   
-
-    randomIndex = Random.Range(0, wordList.Count);
-    LanguageInfo languageInfo = wordList[randomIndex];
-
-    string randomKoreanWord = wordList[randomIndex].KoreanWord;
-
-
-
-
-    // 랜덤하게 선택한 한국어 단어 표시
-
-    GameObject wordObject = new GameObject();
-
-    TextMeshProUGUI koreanUI = GameObject.Find("wordAnswer").GetComponent<TextMeshProUGUI>();
-    koreanUI.font = KoreanFont;
-    koreanUI.text = randomKoreanWord;
-
-    //cubePrefab = new GameObject();
-
-    //cube prefab 할 것 먼저 만들어 놓음 
-    GameObject cubePrefab = GameObject.CreatePrimitive(PrimitiveType.Cube);
-    
-
-    cubePrefab.transform.localScale = new Vector3(3.813359f, 6f, 1f);
-    cubePrefab.GetComponent<Renderer>().material = cubeMaterial;
-    //XRGrabInteractable grabInteractable = cubePrefab.AddComponent<XRGrabInteractable>();
-   
-    //grabInteractable.interactionLayerMask = LayerMask.GetMask("interactable"); // Set the appropriate layer
-    cubePrefab.layer = 7;
-    //cubePrefab.AddComponent<BoxCollider>();
-
-    //cubePrefab.SetActive(false);
-
-    //text prefab할 것 먼저 만들어 놓음 
-    GameObject textPrefab = new GameObject();
-
-    // -- for문 시작
-
-    Quaternion rotation = Quaternion.identity;
-
-    List<int> usedIndexes = new List<int>();
-    List<int> remainingIndices = new List<int>();
-    List<int> generatedRandomIndexes = new List<int>();
-    int cubeCount;
-    float[] xPositions = new float[] { 1475.7f, 1479.93f, 1484.03f, 1488.09f, 1492.16f };
-    int numberOfCubes = Random.Range(3, 6);
-    List<int> availableIndexes = new List<int>(xPositions.Length);// 큐브 위치의 갯수 
-
-    for (int i = 0; i < xPositions.Length; i++)
-    {
-        availableIndexes.Add(i);
-    }
+GameObject cube = Instantiate(cubePrefab, spawnPosition, rotation);
+destroyMethod destroyMethodScript = cube.AddComponent<destroyMethod>();
+cube.SetActive(true);
+randomIndex = Random.Range(0, availableIndexes.Count);
 ```
+큐브에 큐브가 파괴될 때 작동하도록 destroyMethod라는 스크립트를 붙여주고 큐브 위치의 갯수만큼 램덤하게 만들어지도록 합니다. 
+
+###2) 중국어 단어 부착  - 큐브 생성 후 중국어 텍스트 생성 및 머티리얼 조정 
+```C#
+randomIndex = Random.Range(0, wordList.Count);
+LanguageInfo languageInfo = wordList[randomIndex];
+string randomKoreanWord = wordList[randomIndex].KoreanWord;
+GameObject wordObject = new GameObject();
+TextMeshProUGUI koreanUI = GameObject.Find("wordAnswer").GetComponent<TextMeshProUGUI>();
+koreanUI.font = KoreanFont;
+koreanUI.text = randomKoreanWord;
+```
+후에 한국어 단어와 대응되는 중국어 단어 정답 및 램더하게 중국어 단러를 큐브에 붙이기 위한 작업입니다.  
+```C#
+GameObject textPrefab = new GameObject();
+
+GameObject textObject = Instantiate(textPrefab, cube.transform);
+TextMeshPro textMesh = textObject.AddComponent<TextMeshPro>();
+RectTransform textRectTransform = textObject.GetComponent<RectTransform>();
+textObject.layer = 7;
+
+Vector2 newSize = new Vector2(1f, 1f); 
+textRectTransform.sizeDelta = newSize;
+
+textObject.transform.localPosition = new Vector3(textPrefab.transform.position.x, textPrefab.transform.position.y, -0.6189f);
+
+textMesh.fontSize = 3f;
+textMesh.alignment = TextAlignmentOptions.Center;
+
+```
+// 중국어 단어가 렌더링될 영역의 크기 조정
+
+           
+
+textMesh.color = Color.white;
+textMesh.font = chineseFont;
+textMesh.fontStyle = FontStyles.Bold;
+textMesh.isOverlay = false;
+textObject.SetActive(true);
+textMesh.isOverlay = false;
+
+//XRController leftcontroller; 
+BoxCollider boxCollider = textPrefab.AddComponent<BoxCollider>();
+//XRBaseInteractable textInteractor = textPrefab.AddComponent
+//XRGrabInteractable grabInteractableText = textPrefab.AddComponent<XRGrabInteractable>();
+boxCollider.size = new Vector3(1f, 0.5f, 0.1f);
+```
+
+```C#
+    GameObject cube = Instantiate(cubePrefab, spawnPosition, rotation);
+    destroyMethod destroyMethodScript = cube.AddComponent<destroyMethod>();
+    cube.SetActive(true);
+    randomIndex = Random.Range(0, availableIndexes.Count); //큐브의 위치 인덱스 갯수 중 램덤하게 그 위치 numberOfCubes의 갯수만큼 나옴     
+```
+```C#
+ textMesh.alignment = TextAlignmentOptions.Center;
+ textMesh.color = Color.white;
+ textMesh.font = chineseFont;
+ textMesh.fontStyle = FontStyles.Bold;
+ textMesh.isOverlay = false;
+ textObject.SetActive(true);
+ textMesh.isOverlay = false;
+```
+
+
+
 
 ## 목숨(life)
 ```C#
