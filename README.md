@@ -54,7 +54,7 @@ for (int i = 0; i < numberOfCubes; i++)
 
     Vector3 spawnPosition = new Vector3(spawnX, 608.7f + 2.3f, -1107.5f);
 ```
-랜덤하게 뽑은 수만큼 반복하여 큐브를 만들어 위치시키는 부분입니다. 
+랜덤하게 뽑은 수만큼 반복하여 큐브를 만들어 위치시킵니다. 
 
 ```C#
 GameObject cube = Instantiate(cubePrefab, spawnPosition, rotation);
@@ -74,57 +74,93 @@ TextMeshProUGUI koreanUI = GameObject.Find("wordAnswer").GetComponent<TextMeshPr
 koreanUI.font = KoreanFont;
 koreanUI.text = randomKoreanWord;
 ```
-후에 한국어 단어와 대응되는 중국어 단어 정답 및 램더하게 중국어 단러를 큐브에 붙이기 위한 작업입니다.  
+후에 한국어 단어와 대응되는 중국어 단어 정답 및 램더하게 중국어 단어를 큐브에 붙이기 위한 작업입니다.    
 ```C#
 GameObject textPrefab = new GameObject();
-
+...
 GameObject textObject = Instantiate(textPrefab, cube.transform);
 TextMeshPro textMesh = textObject.AddComponent<TextMeshPro>();
 RectTransform textRectTransform = textObject.GetComponent<RectTransform>();
 textObject.layer = 7;
-
 Vector2 newSize = new Vector2(1f, 1f); 
 textRectTransform.sizeDelta = newSize;
-
 textObject.transform.localPosition = new Vector3(textPrefab.transform.position.x, textPrefab.transform.position.y, -0.6189f);
-
 textMesh.fontSize = 3f;
 textMesh.alignment = TextAlignmentOptions.Center;
-
-```
-// 중국어 단어가 렌더링될 영역의 크기 조정
-
-           
-
 textMesh.color = Color.white;
 textMesh.font = chineseFont;
 textMesh.fontStyle = FontStyles.Bold;
 textMesh.isOverlay = false;
 textObject.SetActive(true);
 textMesh.isOverlay = false;
-
-//XRController leftcontroller; 
 BoxCollider boxCollider = textPrefab.AddComponent<BoxCollider>();
-//XRBaseInteractable textInteractor = textPrefab.AddComponent
-//XRGrabInteractable grabInteractableText = textPrefab.AddComponent<XRGrabInteractable>();
 boxCollider.size = new Vector3(1f, 0.5f, 0.1f);
 ```
+중국어를 큐브에 붙이고 레이어를 지정, 크기와 위치 조정, 가운데 정렬, 색깔 지정을 해줍니다.
+그리고 박스 콜라이더를 첨가하고 크기를 조정해줍니다. 
 
 ```C#
-    GameObject cube = Instantiate(cubePrefab, spawnPosition, rotation);
-    destroyMethod destroyMethodScript = cube.AddComponent<destroyMethod>();
-    cube.SetActive(true);
-    randomIndex = Random.Range(0, availableIndexes.Count); //큐브의 위치 인덱스 갯수 중 램덤하게 그 위치 numberOfCubes의 갯수만큼 나옴     
+if (i == 0) //첫번째 것이 맞으면
+{
+    if (randomKoreanIndex1 != -1) // 디자인 패턴 오브젝트 설계 
+                                  //컴포넌트 아키텍쳐 
+                                  //프로젝트 구조 // 만들어서 어떤 구조 설계가 되어야 함. 
+    {
+        // 한국어와 매칭되는 중국어 중에서 중복 피함 
+
+        string randomChineseWord = wordList[randomKoreanIndex1].ChineseWord;
+
+        // Debug.Log("선택한 한국어 : " + randomChineseWord);
+
+        textMesh.text = randomChineseWord;
+        //Debug.Log("선택:" + textMesh.text);
+        // 이미 선택한 단어 쌍을 제외합니다.
+
+        wordList.RemoveAt(randomKoreanIndex1);// 중복 제거 
+
+
+    }
+
+}
+
+else // 나머지 큐브들에 대해서 랜덤하게 중국어 단어를 할당합니다. 
+     //cube에 대해서 한국어와 중국어 단어 쌍을 설정하고, 나머지 cubes에 대해서 랜덤하게 중국어 단어를 할당하는 부분
+{
+    //randomIndex = Random.Range(0, wordPairs.Count);
+    string randomChineseWord = wordList[randomIndex].ChineseWord;
+    //Debug.Log("나머지 큐브 : " + randomChineseWord);
+    //Debug.Log("인덱스:" + randomIndex);
+    textMesh.text = randomChineseWord;
+    // Debug.Log("textMesh.text:" + textMesh.text);
+
+
+    // 이미 선택한 단어 쌍을 제외합니다.
+    wordList.RemoveAt(randomIndex);
+
+}
+textObject.transform.parent = cube.transform;
 ```
+한국어와 대응되는 중국어 단어가 중복되는 것을 피하고 나머지 큐브들에 대해서 랜덤하게 중국어 단어를 할당합니다. 
+그리고 중국어 단어를 큐브의 자식으로 놓아서 큐브에 붙게 합니다. 
 ```C#
- textMesh.alignment = TextAlignmentOptions.Center;
- textMesh.color = Color.white;
- textMesh.font = chineseFont;
- textMesh.fontStyle = FontStyles.Bold;
- textMesh.isOverlay = false;
- textObject.SetActive(true);
- textMesh.isOverlay = false;
+Rigidbody cubeRigidbody = cube.GetComponent<Rigidbody>();
+if (cubeRigidbody == null)
+{
+    cubeRigidbody = cube.AddComponent<Rigidbody>();
+    cubeRigidbody.useGravity = false;
+}
+
+cubes.Add(cube);
+//cubes.Add(spareCube);
+
 ```
+
+
+
+
+
+
+
 
 
 
