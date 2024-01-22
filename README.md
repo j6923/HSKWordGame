@@ -98,6 +98,14 @@ boxCollider.size = new Vector3(1f, 0.5f, 0.1f);
 ```
 중국어를 큐브에 붙이고 레이어를 지정, 크기와 위치 조정, 가운데 정렬, 색깔 지정을 해줍니다.
 그리고 박스 콜라이더를 첨가하고 크기를 조정해줍니다. 
+```C#
+int randomKoreanIndex1 = wordList.FindIndex(wordList => wordList.KoreanWord == randomKoreanWord);// 인덱스 찾은 것이 한국어 인덱스와 맞으면 
+ //인덱스 나옴 -1나옴 
+if (i != posIndex)
+{
+    remainingIndices.Add(i);
+}
+```
 
 ```C#
 if (i == 0) //첫번째 것이 맞으면
