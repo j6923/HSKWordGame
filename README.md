@@ -4,6 +4,7 @@
 <img>
 <h1> 큐브 및 중국어 단어 스크립트 </h1>
 <h1>목숨(life)</h1>
+### Code block
 public TextMeshProUGUI lifeUI;
 public int life;
 private void Update()
