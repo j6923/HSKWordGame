@@ -1,5 +1,5 @@
 # HSK 단어 맞추기 게임입니다. 
-동영상 : http://bit.ly/hskprojectvideo
+동영상 : http://bit.ly/hskprojectvideo<br>
 ##중국어와 한국어 구조체 매핑 
 ```C#
 namespace LanguageData
