@@ -34,7 +34,7 @@ namespace LanguageData
         }
     }
 ```
-#큐브 및 중국어 단어 생성 
+<h1>큐브 및 중국어 단어 생성 </h1>
 1) 큐브 생성 
 ```C#
 for (int i = 0; i < numberOfCubes; i++)
@@ -139,7 +139,8 @@ cubes.Add(cube);
  중국어 단어가 있는 큐브와 여분의 큐브를 cubes라는 리스트에 넣어줍니다. 
 
 
-##큐브 전진시키기 (UpdateWord.cs, wordCreator.cs)
+<h1>큐브 전진시키기 (UpdateWord.cs, wordCreator.cs)</h1>
+
 ```C#
 public void MoveForward()
 {
@@ -344,7 +345,7 @@ private void Update()
 }
 
 ```
-목숨(life)를 표시하는 부분입니다. 
+ 목숨(life)를 표시하는 부분입니다. 
 
 ```C#
 private void Update()
