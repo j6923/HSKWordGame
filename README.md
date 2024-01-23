@@ -36,6 +36,7 @@ namespace LanguageData
 ```
 <h1>큐브 및 중국어 단어 생성 </h1>
 <h2> 1) 큐브 생성 </h2> 
+
 ```C#
 for (int i = 0; i < numberOfCubes; i++)
 {
@@ -66,6 +67,7 @@ randomIndex = Random.Range(0, availableIndexes.Count);
  큐브에 큐브가 파괴될 때 작동하도록 destroyMethod라는 스크립트를 붙여주고 큐브 위치의 갯수만큼 램덤하게 만들어지도록 합니다. 
 
 <h2>2) 중국어 단어 부착  - 큐브 생성 후 중국어 텍스트 생성 및 머티리얼 조정 </h2>
+
 ```C#
 randomIndex = Random.Range(0, wordList.Count);
 LanguageInfo languageInfo = wordList[randomIndex];
@@ -76,6 +78,7 @@ koreanUI.font = KoreanFont;
 koreanUI.text = randomKoreanWord;
 ```
  후에 한국어 단어와 대응되는 중국어 단어 정답 및 램더하게 중국어 단어를 큐브에 붙이기 위한 작업입니다.    
+ 
 ```C#
 GameObject textPrefab = new GameObject();
 ...
@@ -101,6 +104,7 @@ boxCollider.size = new Vector3(1f, 0.5f, 0.1f);
  그리고 박스 콜라이더를 첨가하고 크기를 조정해줍니다. 
 
 <h2> 3) 여분의 큐브 생성 </h2>
+
 ```C#
  if (cubes.Count != 5) // spareCUbe
  {
@@ -171,6 +175,7 @@ void Update()
 
 
 <h1>중국어 단어 중복 처리</h1>  
+
 ```C#
 int randomKoreanIndex1 = wordList.FindIndex(wordList => wordList.KoreanWord == randomKoreanWord);// 인덱스 찾은 것이 한국어 인덱스와 맞으면 
  //인덱스 나옴 -1나옴 
