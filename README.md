@@ -1,6 +1,7 @@
 <h1> HSK 단어 맞추기 게임 </h1>
+<br>
 <h1>동영상 : http://bit.ly/hskprojectvideo<br></h1>
-
+<br>
 <h1>중국어와 한국어 단어 매핑(LanguageData.cs)</h1>
 
 ```C#
@@ -34,7 +35,8 @@ namespace LanguageData
         }
     }
 ```
-<h1>큐브 및 중국어 단어 생성 </h1>
+<br>
+<h1>큐브 및 중국어 단어 생성 </h1><br>
 <h2> 1) 큐브 생성 </h2> 
 
 ```C#
@@ -142,7 +144,7 @@ cubes.Add(cube);
 ```
  중국어 단어가 있는 큐브와 여분의 큐브를 cubes라는 리스트에 넣어줍니다. 
 
-
+<br>
 <h1>큐브 전진시키기 (UpdateWord.cs, wordCreator.cs)</h1>
 
 ```C#
@@ -173,7 +175,7 @@ void Update()
 ```
  함수를 호출하여 큐브들이 앞으로 전진하게 합니다. 
 
-
+<br>
 <h1>중국어 단어 중복 처리</h1>  
 
 ```C#
@@ -231,7 +233,7 @@ textObject.transform.parent = cube.transform;
 ```
  한국어와 대응되는 중국어 단어가 중복되는 것을 피하고 나머지 큐브들에 대해서 랜덤하게 중국어 단어를 할당합니다. 
  그리고 중국어 단어를 큐브의 자식으로 놓아서 큐브에 붙게 합니다. 
-
+<br>
 <h1>큐브 파괴 및 목숨과 점수 조정</h1>
 
 ```C#
@@ -374,7 +376,7 @@ private void Update()
  }
 ```
 목숨이 0이 되면 GameOver씬으로 가게됩니다.  (wordCreator.cs) 
-
+<br>
 <h1>음악 정지 및 재생</h1>  
 
 ```C#
