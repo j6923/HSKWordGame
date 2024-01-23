@@ -372,6 +372,93 @@ private void Update()
 <h1>음악 정지 및 재생</h1>  
 
 ```C#
+[SerializeField] Image soundOnIcon;
+[SerializeField] Image soundOffIcon;
+private bool muted = false;
+// Start is called before the first frame update
+void Start()
+{
+    if(!PlayerPrefs.HasKey("muted"))
+    {
+        PlayerPrefs.SetInt("muted", 1);
+        Load();
+    }
+    else
+    {
+        PlayerPrefs.SetInt("muted", 0);//ÀÌ°Í Ãß°¡ÇØÁà¾ß ÇÔ. 
+        Load();
+    }
+    UpdateButtonIcon();
+    AudioListener.pause = muted; 
+}
+
+
+public void OnButtonPress()
+{
+    if(muted == false)
+    {
+        if(muted == false)
+        {
+            muted = true;
+            AudioListener.pause = true; 
+
+        } 
+        else
+        {
+            muted = false;
+            AudioListener.pause = false;   // ¼Ò¸® ±×¸²À» onÀÌ¸é Å¬¸¯ÇÏ¸é off ±×¸²À¸·Î ¾Æ´Ï¸é ±× ¹Ý´ë·Î ¹Ù²ãÁÜ 
+        }
+        Save();
+        UpdateButtonIcon(); 
+    }
+    else  //¹öÆ° ¹Ù²ãÁÖ·Á¸é ÀÌ°Í Ãß°¡ÇØ¾ßÇÔ 
+    {
+        if (muted == true)
+        {
+            muted = false;
+            AudioListener.pause = false;
+
+        }
+        else
+        {
+            muted = true;
+            AudioListener.pause = true;   // ¼Ò¸® ±×¸²À» onÀÌ¸é Å¬¸¯ÇÏ¸é off ±×¸²À¸·Î ¾Æ´Ï¸é ±× ¹Ý´ë·Î ¹Ù²ãÁÜ 
+        }
+        Save();
+        UpdateButtonIcon();
+    }
+
+}
+
+private void UpdateButtonIcon()
+{
+    if(muted == false)
+    {
+        soundOnIcon.enabled = true;
+        soundOffIcon.enabled = false;
+    }
+    else
+    {
+        soundOnIcon.enabled = false;
+        soundOffIcon.enabled = true;
+    }
+}
+
+private void Load()
+{
+    muted = PlayerPrefs.GetInt("muted") == 1;  
+    //muted = PlayerPrefs.GetInt("muted") == 0;
+}
+
+private void Save()
+{
+    PlayerPrefs.SetInt("muted", muted ? 1 : 0); 
+}
+```
+ 음악 재생 중 : 버튼 클릭할 때 Image가 음악 꺼짐 Image로 변경  
+ 음악 정지 중 : 버튼 클릭할 때 Image가 음악 켜짐 Image로 변경  
+
+```C#
 void Awake()
 {
     if(backgroundMusic == null)
@@ -385,6 +472,6 @@ void Awake()
     }
 }
 ```
-
+  Audio Source가 버튼 클림함에 따라 재생 및 정지하는 부분입니다. 
 
 
