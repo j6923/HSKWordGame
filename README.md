@@ -1,7 +1,7 @@
-# HSK 단어 맞추기 게임입니다. 
-# 동영상 : http://bit.ly/hskprojectvideo<br>
+<h1>HSK 단어 맞추기 게임입니다. </h1>
+<h1>동영상 : http://bit.ly/hskprojectvideo<br></h1>
 
-#중국어와 한국어 단어 매핑(LanguageData.cs) 
+<h1>중국어와 한국어 단어 매핑(LanguageData.cs)</h1>
 ```C#
 namespace LanguageData
 {
@@ -168,7 +168,7 @@ void Update()
 함수를 호출하여 큐브들이 앞으로 전진하게 합니다. 
 
 
-#중국어 단어 중복 처리  
+<h1>중국어 단어 중복 처리</h1>  
 ```C#
 int randomKoreanIndex1 = wordList.FindIndex(wordList => wordList.KoreanWord == randomKoreanWord);// 인덱스 찾은 것이 한국어 인덱스와 맞으면 
  //인덱스 나옴 -1나옴 
@@ -225,7 +225,7 @@ textObject.transform.parent = cube.transform;
 한국어와 대응되는 중국어 단어가 중복되는 것을 피하고 나머지 큐브들에 대해서 랜덤하게 중국어 단어를 할당합니다. 
 그리고 중국어 단어를 큐브의 자식으로 놓아서 큐브에 붙게 합니다. 
 
-# 큐브 파괴 및 목숨과 점수 조정
+<h1>큐브 파괴 및 목숨과 점수 조정</h1>
 
 ```C#
     RaycastHit hit;
