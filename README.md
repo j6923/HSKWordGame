@@ -37,7 +37,7 @@ namespace LanguageData
 ```
 <br>
 <h1>큐브 및 중국어 단어 생성 </h1><br>
-<h2> 1) 큐브 생성 </h2> 
+<h2> 1) 큐브 생성(wordCreator.cs) </h2> 
 
 ```C#
 for (int i = 0; i < numberOfCubes; i++)
@@ -68,7 +68,7 @@ randomIndex = Random.Range(0, availableIndexes.Count);
 ```
  큐브에 큐브가 파괴될 때 작동하도록 destroyMethod라는 스크립트를 붙여주고 큐브 위치의 갯수만큼 램덤하게 만들어지도록 합니다. 
 
-<h2>2) 중국어 단어 부착  - 큐브 생성 후 중국어 텍스트 생성 및 머티리얼 조정 </h2>
+<h2>2) 중국어 단어 부착  - 큐브 생성 후 중국어 텍스트 생성 및 머티리얼 조정(wordCreator.cs) </h2>
 
 ```C#
 randomIndex = Random.Range(0, wordList.Count);
@@ -105,7 +105,7 @@ boxCollider.size = new Vector3(1f, 0.5f, 0.1f);
  중국어를 큐브에 붙이고 레이어를 지정, 크기와 위치 조정, 가운데 정렬, 색깔 지정을 해줍니다.
  그리고 박스 콜라이더를 첨가하고 크기를 조정해줍니다. 
 
-<h2> 3) 여분의 큐브 생성 </h2>
+<h2> 3) 여분의 큐브 생성(wordCreator.cs) </h2>
 
 ```C#
  if (cubes.Count != 5) // spareCUbe
@@ -176,7 +176,7 @@ void Update()
  함수를 호출하여 큐브들이 앞으로 전진하게 합니다. 
 
 <br>
-<h1>중국어 단어 중복 처리</h1>  
+<h1>중국어 단어 중복 처리(wordCreator.cs)</h1>  
 
 ```C#
 int randomKoreanIndex1 = wordList.FindIndex(wordList => wordList.KoreanWord == randomKoreanWord);// 인덱스 찾은 것이 한국어 인덱스와 맞으면 
@@ -235,7 +235,7 @@ textObject.transform.parent = cube.transform;
  그리고 중국어 단어를 큐브의 자식으로 놓아서 큐브에 붙게 합니다. 
 <br>
 
-<h1>큐브 파괴 및 목숨과 점수 조정</h1>
+<h1>큐브 파괴 및 목숨과 점수 조정(playerManager.cs, destroyMethod.cs)</h1>
 
 ```C#
     RaycastHit hit;
@@ -362,7 +362,7 @@ private void Update()
 
 }
 ```
-점수 표시하는 부분입니다. 
+점수 표시하는 부분입니다. (scoreManager.cs)
 
 
 ```C#
@@ -378,7 +378,7 @@ private void Update()
 ```
 목숨이 0이 되면 GameOver씬으로 가게됩니다.  (wordCreator.cs) 
 <br>
-<h1>음악 정지 및 재생</h1>  
+<h1>음악 정지 및 재생(SoundManger.cs, BackgroundMusic.cs)</h1>  
 
 ```C#
 [SerializeField] Image soundOnIcon;
