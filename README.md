@@ -1,5 +1,9 @@
 <h1> HSK 단어 맞추기 게임 </h1>
-https://github.com/j6923/HSKWordGame/assets/69246174/ad01668e-c207-4da9-8eff-29822e2828a3<br>
+<p align="center">
+  <img src="https://github.com/j6923/HSKWordGame/assets/69246174/ad01668e-c207-4da9-8eff-29822e2828a3"><br>
+</p>
+
+
 https://github.com/j6923/HSKWordGame/assets/69246174/29fc9665-1c17-42da-b8ca-9f3bcc5f4830<br>
 ![스크린샷 2024-01-14 212801](https://github.com/j6923/HSKWordGame/assets/69246174/34b89da6-6019-4659-a461-731054a26f7f)<br>
 ![스크린샷 2024-01-13 114053](https://github.com/j6923/HSKWordGame/assets/69246174/fa3c780b-f16a-480f-b895-e7ca84723a2f)<br>
