@@ -55,7 +55,7 @@ for (int i = 0; i < numberOfCubes; i++)
 
     Vector3 spawnPosition = new Vector3(spawnX, 608.7f + 2.3f, -1107.5f);
 ```
-랜덤하게 뽑은 수만큼 반복하여 큐브를 만들어 위치시킵니다. 
+    랜덤하게 뽑은 수만큼 반복하여 큐브를 만들어 위치시킵니다. 
 
 ```C#
 GameObject cube = Instantiate(cubePrefab, spawnPosition, rotation);
@@ -63,7 +63,7 @@ destroyMethod destroyMethodScript = cube.AddComponent<destroyMethod>();
 cube.SetActive(true);
 randomIndex = Random.Range(0, availableIndexes.Count);
 ```
-큐브에 큐브가 파괴될 때 작동하도록 destroyMethod라는 스크립트를 붙여주고 큐브 위치의 갯수만큼 램덤하게 만들어지도록 합니다. 
+    큐브에 큐브가 파괴될 때 작동하도록 destroyMethod라는 스크립트를 붙여주고 큐브 위치의 갯수만큼 램덤하게 만들어지도록 합니다. 
 
 2) 중국어 단어 부착  - 큐브 생성 후 중국어 텍스트 생성 및 머티리얼 조정 
 ```C#
@@ -75,7 +75,7 @@ TextMeshProUGUI koreanUI = GameObject.Find("wordAnswer").GetComponent<TextMeshPr
 koreanUI.font = KoreanFont;
 koreanUI.text = randomKoreanWord;
 ```
-후에 한국어 단어와 대응되는 중국어 단어 정답 및 램더하게 중국어 단어를 큐브에 붙이기 위한 작업입니다.    
+    후에 한국어 단어와 대응되는 중국어 단어 정답 및 램더하게 중국어 단어를 큐브에 붙이기 위한 작업입니다.    
 ```C#
 GameObject textPrefab = new GameObject();
 ...
