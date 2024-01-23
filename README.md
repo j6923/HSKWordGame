@@ -1,4 +1,12 @@
 <h1> HSK 단어 맞추기 게임 </h1>
+![스크린샷 2024-01-15 223639](https://github.com/j6923/HSKWordGame/assets/69246174/ad01668e-c207-4da9-8eff-29822e2828a3)
+![스크린샷 2024-01-14 200208](https://github.com/j6923/HSKWordGame/assets/69246174/29fc9665-1c17-42da-b8ca-9f3bcc5f4830)
+![스크린샷 2024-01-14 212801](https://github.com/j6923/HSKWordGame/assets/69246174/34b89da6-6019-4659-a461-731054a26f7f)
+![스크린샷 2024-01-13 114053](https://github.com/j6923/HSKWordGame/assets/69246174/fa3c780b-f16a-480f-b895-e7ca84723a2f)
+![스크린샷 2024-01-13 113719](https://github.com/j6923/HSKWordGame/assets/69246174/c109191c-117d-4440-a66c-cc08bf3aeab0)
+![스크린샷 2024-01-15 142308](https://github.com/j6923/HSKWordGame/assets/69246174/42f9dd1d-7155-47e6-aab3-dedc6eff2ebf)
+
+
 <br>
 <h1>동영상 : http://bit.ly/hskprojectvideo<br></h1>
 <br>
