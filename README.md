@@ -55,7 +55,7 @@ for (int i = 0; i < numberOfCubes; i++)
 
     Vector3 spawnPosition = new Vector3(spawnX, 608.7f + 2.3f, -1107.5f);
 ```
-    랜덤하게 뽑은 수만큼 반복하여 큐브를 만들어 위치시킵니다. 
+ 랜덤하게 뽑은 수만큼 반복하여 큐브를 만들어 위치시킵니다. 
 
 ```C#
 GameObject cube = Instantiate(cubePrefab, spawnPosition, rotation);
@@ -63,7 +63,7 @@ destroyMethod destroyMethodScript = cube.AddComponent<destroyMethod>();
 cube.SetActive(true);
 randomIndex = Random.Range(0, availableIndexes.Count);
 ```
-    큐브에 큐브가 파괴될 때 작동하도록 destroyMethod라는 스크립트를 붙여주고 큐브 위치의 갯수만큼 램덤하게 만들어지도록 합니다. 
+ 큐브에 큐브가 파괴될 때 작동하도록 destroyMethod라는 스크립트를 붙여주고 큐브 위치의 갯수만큼 램덤하게 만들어지도록 합니다. 
 
 2) 중국어 단어 부착  - 큐브 생성 후 중국어 텍스트 생성 및 머티리얼 조정 
 ```C#
@@ -75,7 +75,7 @@ TextMeshProUGUI koreanUI = GameObject.Find("wordAnswer").GetComponent<TextMeshPr
 koreanUI.font = KoreanFont;
 koreanUI.text = randomKoreanWord;
 ```
-    후에 한국어 단어와 대응되는 중국어 단어 정답 및 램더하게 중국어 단어를 큐브에 붙이기 위한 작업입니다.    
+ 후에 한국어 단어와 대응되는 중국어 단어 정답 및 램더하게 중국어 단어를 큐브에 붙이기 위한 작업입니다.    
 ```C#
 GameObject textPrefab = new GameObject();
 ...
@@ -97,8 +97,8 @@ textMesh.isOverlay = false;
 BoxCollider boxCollider = textPrefab.AddComponent<BoxCollider>();
 boxCollider.size = new Vector3(1f, 0.5f, 0.1f);
 ```
-중국어를 큐브에 붙이고 레이어를 지정, 크기와 위치 조정, 가운데 정렬, 색깔 지정을 해줍니다.
-그리고 박스 콜라이더를 첨가하고 크기를 조정해줍니다. 
+ 중국어를 큐브에 붙이고 레이어를 지정, 크기와 위치 조정, 가운데 정렬, 색깔 지정을 해줍니다.
+ 그리고 박스 콜라이더를 첨가하고 크기를 조정해줍니다. 
 
 3) 여분의 큐브 생성 
 ```C#
@@ -130,13 +130,13 @@ boxCollider.size = new Vector3(1f, 0.5f, 0.1f);
          spareCube.transform.rotation = Quaternion.identity;
             ...
 ```
-중국어 단어가 있는 큐브가 랜덤으로 위치가 선택되지 않은 곳에 여분의 큐브를 만들어줍니다. 
+ 중국어 단어가 있는 큐브가 랜덤으로 위치가 선택되지 않은 곳에 여분의 큐브를 만들어줍니다. 
 
 ```C#
 cubes.Add(spareCube);
 cubes.Add(cube);
 ```
-중국어 단어가 있는 큐브와 여분의 큐브를 cubes라는 리스트에 넣어줍니다. 
+ 중국어 단어가 있는 큐브와 여분의 큐브를 cubes라는 리스트에 넣어줍니다. 
 
 
 ##큐브 전진시키기 (UpdateWord.cs, wordCreator.cs)
@@ -158,7 +158,7 @@ public void MoveForward()
     }
 }
 ```
-cubes 리스트에 저장된 큐브들이 5의 속도로 전진하게 하는 메소드를 만듭니다. 
+ cubes 리스트에 저장된 큐브들이 5의 속도로 전진하게 하는 메소드를 만듭니다. 
 ```C#
 void Update()
 {
@@ -166,7 +166,7 @@ void Update()
   
 }
 ```
-함수를 호출하여 큐브들이 앞으로 전진하게 합니다. 
+ 함수를 호출하여 큐브들이 앞으로 전진하게 합니다. 
 
 
 <h1>중국어 단어 중복 처리</h1>  
@@ -180,7 +180,7 @@ if (i != posIndex)
 ```
 
 
-구조체에서 중국어 인덱스와 한국어와 인덱스가 같은 것을 찾고 리스트에 넣어줍니다.  
+ 구조체에서 중국어 인덱스와 한국어와 인덱스가 같은 것을 찾고 리스트에 넣어줍니다.  
 
 ```C#
 if (i == 0) //첫번째 것이 맞으면
@@ -223,8 +223,8 @@ else // 나머지 큐브들에 대해서 랜덤하게 중국어 단어를 할당
 }
 textObject.transform.parent = cube.transform;
 ```
-한국어와 대응되는 중국어 단어가 중복되는 것을 피하고 나머지 큐브들에 대해서 랜덤하게 중국어 단어를 할당합니다. 
-그리고 중국어 단어를 큐브의 자식으로 놓아서 큐브에 붙게 합니다. 
+ 한국어와 대응되는 중국어 단어가 중복되는 것을 피하고 나머지 큐브들에 대해서 랜덤하게 중국어 단어를 할당합니다. 
+ 그리고 중국어 단어를 큐브의 자식으로 놓아서 큐브에 붙게 합니다. 
 
 <h1>큐브 파괴 및 목숨과 점수 조정</h1>
 
@@ -260,8 +260,9 @@ textObject.transform.parent = cube.transform;
         }
     }
 }
-
-Oculus2 컨트롤러의 Ray Interactor가 큐브나 중국어 단어에 닿으면 큐브를 제거합니다. 
+```
+ Oculus2 컨트롤러의 Ray Interactor가 큐브나 중국어 단어에 닿으면 큐브를 제거합니다. 
+ 
 ```C#
  if ((cubeText != null || cubeTextChild != null))
         {
@@ -271,9 +272,6 @@ Oculus2 컨트롤러의 Ray Interactor가 큐브나 중국어 단어에 닿으�
 
             // null 체크 추가
             TMP_Text wordAnswerText = GameObject.Find("wordAnswer")?.GetComponent<TMP_Text>();
-
-
-
 
             if (wordAnswerText != null)
             {
@@ -286,7 +284,6 @@ Oculus2 컨트롤러의 Ray Interactor가 큐브나 중국어 단어에 닿으�
                 GameObject lifeObj = GameObject.Find("playerManager");
                 lifeScore = lifeObj.GetComponent<lifeManager>();
                 
-
                 for (int i = 0; i < WordPair.wordPairs.Count; i++)
                 {
                     string chineseIndex1 = WordPair.wordPairs[i].ChineseWord;
@@ -308,12 +305,8 @@ Oculus2 컨트롤러의 Ray Interactor가 큐브나 중국어 단어에 닿으�
 
                     if (koreanInt != -1 && chineseInt != -1 && koreanInt == chineseInt)
                     {
-                        //if()
+                       
                         sm.currentScore += 1;
-
-
-
-
 
                     }
                     if (koreanInt != -1  && chineseInt != -1 && koreanInt != chineseInt )
@@ -340,11 +333,9 @@ Oculus2 컨트롤러의 Ray Interactor가 큐브나 중국어 단어에 닿으�
 
        
 ```
+ 큐브가 제거되면 중국어 단어가 한국어 단어와 매핑되는지에 따라 처리합니다. 
 
-
-
-## 목숨(life)
-```C#
+ ```C#
 public TextMeshProUGUI lifeUI;
 public int life;
 private void Update()
@@ -353,8 +344,18 @@ private void Update()
 }
 
 ```
+목숨(life)를 표시하는 부분입니다. 
 
-##목숨이 0이 되면 GameOver씬으로 가게 (wordCreator.cs) 
+```C#
+private void Update()
+{
+    currentScoreUI.text = "점수: " + currentScore;
+
+}
+```
+점수 표시하는 부분입니다. 
+
+
 ```C#
  void Update()
  {
@@ -366,13 +367,23 @@ private void Update()
 
  }
 ```
+목숨이 0이 되면 GameOver씬으로 가게됩니다.  (wordCreator.cs) 
 
-
-
-
-
-
-## 음악 정지 및 재생 
+<h1>음악 정지 및 재생</h1>  
+```C#
+void Awake()
+{
+    if(backgroundMusic == null)
+    {
+        backgroundMusic = this;
+        DontDestroyOnLoad(backgroundMusic);
+    }
+    else
+    {
+        Destroy(gameObject);
+    }
+}
+```
 
 
 
