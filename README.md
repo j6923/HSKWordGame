@@ -370,6 +370,7 @@ private void Update()
 목숨이 0이 되면 GameOver씬으로 가게됩니다.  (wordCreator.cs) 
 
 <h1>음악 정지 및 재생</h1>  
+
 ```C#
 void Awake()
 {
