@@ -260,8 +260,86 @@ textObject.transform.parent = cube.transform;
         }
     }
 }
+
+Oculus2 컨트롤러의 Ray Interactor가 큐브나 중국어 단어에 닿으면 큐브를 제거합니다. 
+```C#
+ if ((cubeText != null || cubeTextChild != null))
+        {
+            string chineseCube = cubeText.text;
+
+            scoremanager = FindObjectOfType<scoreManager>();
+
+            // null 체크 추가
+            TMP_Text wordAnswerText = GameObject.Find("wordAnswer")?.GetComponent<TMP_Text>();
+
+
+
+
+            if (wordAnswerText != null)
+            {
+                string KoreanText = wordAnswerText.text;
+                Debug.Log("wordAnswerText: " + KoreanText);
+
+                GameObject smObject = GameObject.Find("ScoreManager");
+                scoreManager sm = smObject.GetComponent<scoreManager>();
+
+                GameObject lifeObj = GameObject.Find("playerManager");
+                lifeScore = lifeObj.GetComponent<lifeManager>();
+                
+
+                for (int i = 0; i < WordPair.wordPairs.Count; i++)
+                {
+                    string chineseIndex1 = WordPair.wordPairs[i].ChineseWord;
+                    string KoreanIndex = WordPair.wordPairs[i].KoreanWord;
+
+                    int chineseInt = -1;
+                    int koreanInt = -1;
+                    if (chineseIndex1 == chineseCube)
+                    {
+                        // Debug.Log("중국어 인덱스: " + i);
+                        chineseInt = i;
+                    }
+
+                    if (KoreanIndex == KoreanText)
+                    {
+                        koreanInt = i;
+                        // Debug.Log("한국어 인덱스: " + i);
+                    }
+
+                    if (koreanInt != -1 && chineseInt != -1 && koreanInt == chineseInt)
+                    {
+                        //if()
+                        sm.currentScore += 1;
+
+
+
+
+
+                    }
+                    if (koreanInt != -1  && chineseInt != -1 && koreanInt != chineseInt )
+                    {
+                        //Debug.Log("인덱스 다르다");
+                       lifeScore.life -= 1;  //여기서 목숨 깎임 
+                                              // Debug.Log("life: " + lifeScore.life);
+                                              //wordcreator.DisableOtherCubesCollider();
+                    }
+
+                }
+            }
+            else
+            {
+                Debug.LogWarning("wordAnswer GameObject을 찾지 못했습니다.");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("TextMeshPro 컴포넌트를 찾지 못했습니다.");
+        }
+    }
+}
+
+       
 ```
-Oculus2 컨트롤러의 Ray Interactor가 큐브나 중국어 단어에 닿으면 큐브를 제거하는 부분입니다. 
 
 
 
