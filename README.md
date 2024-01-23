@@ -1,7 +1,7 @@
 # HSK 단어 맞추기 게임입니다. 
-## 동영상 : http://bit.ly/hskprojectvideo<br>
+# 동영상 : http://bit.ly/hskprojectvideo<br>
 
-##중국어와 한국어 단어 매핑(LanguageData.cs) 
+#중국어와 한국어 단어 매핑(LanguageData.cs) 
 ```C#
 namespace LanguageData
 {
@@ -33,7 +33,7 @@ namespace LanguageData
         }
     }
 ```
-##큐브 및 중국어 단어 생성 
+#큐브 및 중국어 단어 생성 
 1) 큐브 생성 
 ```C#
 for (int i = 0; i < numberOfCubes; i++)
@@ -64,7 +64,7 @@ randomIndex = Random.Range(0, availableIndexes.Count);
 ```
 큐브에 큐브가 파괴될 때 작동하도록 destroyMethod라는 스크립트를 붙여주고 큐브 위치의 갯수만큼 램덤하게 만들어지도록 합니다. 
 
-###2) 중국어 단어 부착  - 큐브 생성 후 중국어 텍스트 생성 및 머티리얼 조정 
+2) 중국어 단어 부착  - 큐브 생성 후 중국어 텍스트 생성 및 머티리얼 조정 
 ```C#
 randomIndex = Random.Range(0, wordList.Count);
 LanguageInfo languageInfo = wordList[randomIndex];
@@ -98,6 +98,77 @@ boxCollider.size = new Vector3(1f, 0.5f, 0.1f);
 ```
 중국어를 큐브에 붙이고 레이어를 지정, 크기와 위치 조정, 가운데 정렬, 색깔 지정을 해줍니다.
 그리고 박스 콜라이더를 첨가하고 크기를 조정해줍니다. 
+
+3) 여분의 큐브 생성 
+```C#
+ if (cubes.Count != 5) // spareCUbe
+ {
+     List<int> validIndexes = availableIndexes
+     .Where(index => index != posIndex || posIndex == 0)
+     .ToList();
+
+     int spareCubeCount = 0;
+     int maxSpareCubeCount = Mathf.Min(validIndexes.Count, 2);
+
+     for (int j = 0; j < maxSpareCubeCount; j++)
+     {
+         if (validIndexes.Count == 0)
+             break;
+
+         int randomIndex = Random.Range(0, validIndexes.Count);
+         int randomNonSelectedIndex = validIndexes[randomIndex];
+         validIndexes.RemoveAt(randomIndex);
+
+         float nonSelectedSpawnX = xPositions[randomNonSelectedIndex];
+         Vector3 nonSelectedSpawnPosition = new Vector3(nonSelectedSpawnX, 608.7f + 2.3f, -1107.5f);
+
+         // 새로운 큐브를 생성
+         spareCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
+         spareCube.transform.localScale = new Vector3(3.813359f, 6f, 1f);
+         spareCube.transform.position = nonSelectedSpawnPosition;
+         spareCube.transform.rotation = Quaternion.identity;
+            ...
+```
+중국어 단어가 있는 큐브가 랜덤으로 위치가 선택되지 않은 곳에 여분의 큐브를 만들어줍니다. 
+
+```C#
+cubes.Add(spareCube);
+cubes.Add(cube);
+```
+중국어 단어가 있는 큐브와 여분의 큐브를 cubes라는 리스트에 넣어줍니다. 
+
+
+##큐브 전진시키기 (UpdateWord.cs, wordCreator.cs)
+```C#
+public void MoveForward()
+{
+    wordCreatorInstance = FindObjectOfType<wordCreator>();
+
+    List<GameObject> cubes = wordCreatorInstance.GetCubesList();
+    List<GameObject> spareBlocks = wordCreatorInstance.GetSpareBlocksList();
+    float moveSpeed = 5f;  // 이동 속도를 조절하는 값
+
+    foreach (GameObject cube in cubes)
+    {
+        if (cube == null) continue;
+
+        float newZ = cube.transform.position.z - moveSpeed * Time.deltaTime;
+        cube.transform.position = new Vector3(cube.transform.position.x, cube.transform.position.y, newZ);
+    }
+}
+```
+cubes 리스트에 저장된 큐브들이 5의 속도로 전진하게 하는 메소드를 만듭니다. 
+```C#
+void Update()
+{
+    update.MoveForward();
+  
+}
+```
+함수를 호출하여 큐브들이 앞으로 전진하게 합니다. 
+
+
+#중국어 단어 중복 처리  
 ```C#
 int randomKoreanIndex1 = wordList.FindIndex(wordList => wordList.KoreanWord == randomKoreanWord);// 인덱스 찾은 것이 한국어 인덱스와 맞으면 
  //인덱스 나옴 -1나옴 
@@ -106,6 +177,8 @@ if (i != posIndex)
     remainingIndices.Add(i);
 }
 ```
+
+
 구조체에서 중국어 인덱스와 한국어와 인덱스가 같은 것을 찾고 리스트에 넣어줍니다.  
 
 ```C#
@@ -151,36 +224,10 @@ textObject.transform.parent = cube.transform;
 ```
 한국어와 대응되는 중국어 단어가 중복되는 것을 피하고 나머지 큐브들에 대해서 랜덤하게 중국어 단어를 할당합니다. 
 그리고 중국어 단어를 큐브의 자식으로 놓아서 큐브에 붙게 합니다. 
-```C#
- if (cubes.Count != 5) // spareCUbe
- {
-     List<int> validIndexes = availableIndexes
-     .Where(index => index != posIndex || posIndex == 0)
-     .ToList();
 
-     int spareCubeCount = 0;
-     int maxSpareCubeCount = Mathf.Min(validIndexes.Count, 2);
 
-     for (int j = 0; j < maxSpareCubeCount; j++)
-     {
-         if (validIndexes.Count == 0)
-             break;
 
-         int randomIndex = Random.Range(0, validIndexes.Count);
-         int randomNonSelectedIndex = validIndexes[randomIndex];
-         validIndexes.RemoveAt(randomIndex);
 
-         float nonSelectedSpawnX = xPositions[randomNonSelectedIndex];
-         Vector3 nonSelectedSpawnPosition = new Vector3(nonSelectedSpawnX, 608.7f + 2.3f, -1107.5f);
-
-         // 새로운 큐브를 생성
-         spareCube = GameObject.CreatePrimitive(PrimitiveType.Cube);
-         spareCube.transform.localScale = new Vector3(3.813359f, 6f, 1f);
-         spareCube.transform.position = nonSelectedSpawnPosition;
-         spareCube.transform.rotation = Quaternion.identity;
-            ...
-```
-중국어 단어가 있는 큐브가 랜덤으로 위치가 선택되지 않은 곳에 여분의 큐브를 만들어줍니다. 
 
 ##목숨이 0이 되면 GameOver씬으로 가게 (wordCreator.cs) 
 ```C#
@@ -194,7 +241,6 @@ textObject.transform.parent = cube.transform;
 
  }
 ```
-
 
 
 
