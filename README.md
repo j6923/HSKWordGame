@@ -225,9 +225,55 @@ textObject.transform.parent = cube.transform;
 한국어와 대응되는 중국어 단어가 중복되는 것을 피하고 나머지 큐브들에 대해서 랜덤하게 중국어 단어를 할당합니다. 
 그리고 중국어 단어를 큐브의 자식으로 놓아서 큐브에 붙게 합니다. 
 
+# 큐브 파괴 및 목숨과 점수 조정
+
+```C#
+    RaycastHit hit;
+
+    if (Physics.Raycast(raycastOrigin, raycastDirection, out hit, 1.1f))
+    {
+        TextMeshPro cubeText = hit.collider.GetComponentInChildren<TextMeshPro>();
+        TextMeshPro cubeTextChild = hit.collider.GetComponent<TextMeshPro>();
+
+        if (cubeText != null || cubeTextChild != null)
+        {
+            findCubes.Add(hit.collider.gameObject);
+            findText.Add(cubeText);
+            findText.Add(cubeTextChild);
+            string chineseCube = cubeText.text;
+            Debug.Log("중국어 단어: " + chineseCube);
+            Destroy(hit.collider.gameObject);
+        }
+        else if (!hit.collider.CompareTag("spareCubes") && (cubeText == null || cubeTextChild == null))
+        {
+            findCubes.Add(hit.collider.gameObject);
+            lifeScore.life -= 1;
+            Destroy(hit.collider.gameObject);
+        }
+
+        else if (hit.collider.CompareTag("spareCubes") && (cubeText == null || cubeTextChild == null) )
+        {
+            findCubes.Add(hit.collider.gameObject);
+            lifeScore.life -= 1;
+            Destroy(hit.collider.gameObject);
+        }
+    }
+}
+```
+Oculus2 컨트롤러의 Ray Interactor가 큐브나 중국어 단어에 닿으면 큐브를 제거하는 부분입니다. 
 
 
 
+## 목숨(life)
+```C#
+public TextMeshProUGUI lifeUI;
+public int life;
+private void Update()
+{
+    lifeUI.text = "×"+ life;
+}
+
+```
 
 ##목숨이 0이 되면 GameOver씬으로 가게 (wordCreator.cs) 
 ```C#
@@ -246,16 +292,7 @@ textObject.transform.parent = cube.transform;
 
 
 
-## 목숨(life)
-```C#
-public TextMeshProUGUI lifeUI;
-public int life;
-private void Update()
-{
-    lifeUI.text = "×"+ life;
-}
 
-```
 ## 음악 정지 및 재생 
 
 
