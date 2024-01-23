@@ -9,7 +9,7 @@
   <img src="https://github.com/j6923/HSKWordGame/assets/69246174/34b89da6-6019-4659-a461-731054a26f7f" width = 400px>
   <img src="https://github.com/j6923/HSKWordGame/assets/69246174/fa3c780b-f16a-480f-b895-e7ca84723a2f" width = 400px>
      <img src="https://github.com/j6923/HSKWordGame/assets/69246174/1f434efe-caf6-4afd-90d0-6f873f3569b2" width = 400px>
-      <img src="https://github.com/j6923/HSKWordGame/assets/69246174/04ea9a34-80c9-47fe-81a0-2b3cd796e52c" width = 400px>
+    
      
    
  
