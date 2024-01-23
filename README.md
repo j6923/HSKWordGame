@@ -175,6 +175,12 @@ void Update()
 ```
  함수를 호출하여 큐브들이 앞으로 전진하게 합니다. 
 
+```C#
+XRSimpleInteractable simpleInteact = cube.AddComponent<XRSimpleInteractable>();
+simpleInteact.selectMode = InteractableSelectMode.Single;
+InteractableSpareCube.selectMode = InteractableSelectMode.Single;
+```
+XRSimpleInteractable를 이용하여 Oculus2의 Ray Interactor를 이용할 수 있게 하였습니다. 
 <br>
 <h1>중국어 단어 중복 처리(wordCreator.cs)</h1>  
 
